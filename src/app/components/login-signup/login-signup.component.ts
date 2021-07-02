@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { WindowService } from 'src/app/services/window.service';
 
 @Component({
@@ -13,10 +15,22 @@ export class LoginSignupComponent implements OnInit {
   phoneNumber:string;
   verificationCode: string;
   user: User;
-  constructor(private win: WindowService,
-    public afAuth: AngularFireAuth,) { }
+  signupForm: FormGroup;
+  signinForm: FormGroup;
+  constructor( private fb: FormBuilder,
+    private afAuth: AngularFireAuth,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.signupForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+    this.signinForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
     const signUpButton = document.getElementById("signUp");
     const signInButton = document.getElementById("signIn");
     const container = document.getElementById("container");
@@ -37,7 +51,11 @@ export class LoginSignupComponent implements OnInit {
     //   console.log('Something is wrong:', error.message);
     // });   
 
-    this.windowRef.recaptchaVerifier.render()
   }
-
+  onSignIn(form: FormGroup){
+    this.authService.SignIn(form.value.email, form.value.password);
+  }
+  onSignUp(form: FormGroup){
+    this.authService.SignUp(form.value);
+  }
 }

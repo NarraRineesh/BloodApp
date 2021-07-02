@@ -1,1 +1,26 @@
-<p>donors-list works!</p>
+<div class="container" #container>
+    <div class="row d-flex justify-content-center align-items-center" *ngIf="!showNoData">
+        <div class="col-12" *ngFor="let donor of Donors">
+            <div class="drop__card">
+                <div class="drop__data">
+                  <img [src]="donor.data.photoURL" alt="Perfil_01" class="drop__img" />
+                  <div>
+                    <h1 class="drop__name">{{donor.data.displayName}}</h1>
+                    <span class="drop__profession">Full stack developer</span>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div> 
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="container"></ngx-loading>
+<div class="container" *ngIf="showNoData">
+    <div class="row">
+        <div class="col-12">
+<div class="no_data_content">
+    <img src="src\assets\download.png" alt="no_data">
+    <p>Currently no donors available...</p>
+</div>
+        </div>
+    </div>
+</div>

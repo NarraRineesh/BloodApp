@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,21 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor() { }
+  isLoggedIn$: boolean;
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+    
 const links = document.querySelectorAll(".nav-links li");
 
-hamburger.addEventListener('click', ()=>{
-    navLinks.classList.toggle("open");
-    // links.forEach(link => {
-    //     link.classList.toggle("fade");
-    // });
-    hamburger.classList.toggle("toggle");
-});
   }
-
+toggle(){
+  const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+navLinks.classList.toggle("open");
+hamburger.classList.toggle("toggle");
+}
+logout(){
+  this.authService.SignOut();
+  this.authService.isLoggedIn
+}
 }
