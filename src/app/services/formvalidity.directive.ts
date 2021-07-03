@@ -13,7 +13,6 @@ export class CheckFormFieldValidity {
     public get isValid(): boolean {
         return this.valid;
     }
-
     @HostBinding('class.is-invalid')
     public get isInvalid(): boolean {
         return this.invalid;

@@ -1,1 +1,97 @@
-<p>become-donar works!</p>
+<div class="container">
+    <h1 style="text-align: center;" class="my-3">Become donor</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <label for="basic-addon1">Mobile number</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">+91</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Mobile number" aria-label="Username" aria-describedby="basic-addon1" formControlName="mobile">
+        </div>
+        <span class="text-danger"
+            *ngIf="(registerFormControl.mobile.touched || submitted) && registerFormControl.mobile.errors?.required">
+             Mobile number is required*
+        </span>
+        
+        <div class="form-group">
+          <label for="address">City</label>
+          <input type="text" class="form-control" id="address" placeholder="Ex: chennai" formControlName="city">
+        </div>
+        <span class="text-danger"
+            *ngIf="(registerFormControl.city.touched || submitted) && registerFormControl.city.errors?.required">
+             City is required*
+        </span>
+        <div class="form-group mt-3">
+            <label for="address">Area</label>
+            <input type="text" class="form-control" id="address" placeholder="Ex: Anna nagar" formControlName="area">
+        </div>
+        <span class="text-danger"
+            *ngIf="(registerFormControl.area.touched || submitted) && registerFormControl.area.errors?.required">
+             Area is required*
+        </span>
+        <div class="input-group my-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Blood group</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" formControlName="bloodGroup">
+              <option selected disabled>Choose...</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="o+">o+</option>
+              <option value="o-">o-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+        </div>
+        <span class="text-danger"
+            *ngIf="(registerFormControl.bloodGroup.touched || submitted) && registerFormControl.bloodGroup.errors?.required">
+             Blood group is required*
+        </span>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Willing to donate plasma?</legend>
+              <div class="col-sm-10" style="display: flex; justify-content: space-around;">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="gridRadios1" formControlName="plasma" value="true">
+                  <label class="form-check-label" for="gridRadios1">
+                   Yes
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"  id="gridRadios2" formControlName="plasma" value="false">
+                  <label class="form-check-label" for="gridRadios2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <label>Weight</label>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Ex:75" aria-label="Ex:75" aria-describedby="basic-addon2" formControlName="weight">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">kgs</span>
+            </div>
+          </div>
+          <span class="text-danger"
+            *ngIf="(registerFormControl.weight.touched || submitted) && registerFormControl.weight.errors?.required">
+            Weight is required*
+        </span>
+          <div class="form-group">
+            <label for="address">Age</label>
+            <input type="text" class="form-control" id="address" placeholder="Ex: 24" formControlName="age">
+        </div>
+        <span class="text-danger"
+            *ngIf="(registerFormControl.age.touched || submitted) && registerFormControl.age.errors?.required">
+             Age is required*
+        </span>
+       <div class="row my-3">
+           <div class="col">
+            <button type="submit" class="btn btn-primary">Submit</button>
+           </div>
+       </div>
+        
+      </form>
+</div>

@@ -18,6 +18,8 @@ import { HomeComponent } from './components/home/home.component';
 import { DonorsListComponent } from './components/donors-list/donors-list.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
+import { FAQComponent } from './components/faq/faq.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { NgxLoadingModule } from 'ngx-loading';
     BecomeDonarComponent,
     DonorsListComponent,
     ContactUsComponent,
-    CheckFormFieldValidity
+    CheckFormFieldValidity,
+    OtpVerifyComponent,
+    FAQComponent
   ],
   imports: [
     BrowserModule,

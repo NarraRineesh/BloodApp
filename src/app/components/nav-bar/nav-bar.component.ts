@@ -25,6 +25,5 @@ hamburger.classList.toggle("toggle");
 }
 logout(){
   this.authService.SignOut();
-  this.authService.isLoggedIn
 }
 }

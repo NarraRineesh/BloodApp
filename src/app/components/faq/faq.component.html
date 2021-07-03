@@ -1,0 +1,29 @@
+<!-- <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">FAQ</h1>
+      <p class="lead">This is a Sample FAQ page.</p>
+    </div>
+  </div>
+  
+  <br> -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel-group" id="accordion" *ngFor="let faq of array;let i=index">
+          <div class="panel panel-default dropdown">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title" id="dropdownMenuButton{{i}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a>
+                {{faq.question}}
+                </a>
+              </h4>
+            </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{i}}" class="panel-collapse collapse in">
+              <div class="panel-body">{{faq.answer}}
+           </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
