@@ -20,6 +20,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { NgxLoadingModule } from 'ngx-loading';
 import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
 import { FAQComponent } from './components/faq/faq.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,7 @@ import { FAQComponent } from './components/faq/faq.component';
     CommonModule,
     AppRoutingModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
