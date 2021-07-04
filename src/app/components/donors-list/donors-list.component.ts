@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./donors-list.component.css']
 })
 export class DonorsListComponent implements OnInit {
-  Donors: any[] =[];
+  Donors: User[] =[];
   public loading = false;
   showNoData: boolean;
   constructor(private userService: UserService) { }
@@ -19,19 +20,14 @@ export class DonorsListComponent implements OnInit {
     this.loading = true;
     this.userService.getUserList().subscribe(res => {
       this.loading = false;
-      this.Donors = res.map( e => {
+      const donors = res.map( e => {
         return {
           id: e.payload.doc.id,
           data:e.payload.doc.data()
         } as any;
       })
       console.log(this.Donors)
-if(this.Donors.length === 0){
-  this.showNoData= true
-} 
-else{
-  this.showNoData = false
-}   
+this.Donors = donors.filter(item => item.data.isDonor === true)
     }); 
   }
 

@@ -16,6 +16,7 @@ nav{
 .logo img {
     height: 5rem;
     width: 5rem;
+    border-radius: 5px;
 }
 
 /*Styling Links*/

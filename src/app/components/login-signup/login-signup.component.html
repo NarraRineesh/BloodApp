@@ -2,7 +2,6 @@
     <div class="form-container sign-up-container">
       <form [formGroup]="signupForm" >
         <h1 class="mb-3">Sign Up</h1>
-      
         <input type="text" placeholder="Name" formControlName="name"/>
         <input type="email" placeholder="Email" formControlName="email"/>
         <input type="password" placeholder="Password" formControlName="password"/>
@@ -12,10 +11,9 @@
     <div class="form-container sign-in-container">
       <form [formGroup]="signinForm">
         <h1 class="mb-3">Sign In</h1>
-        
         <input type="email" placeholder="Email" formControlName="email"/>
         <input type="password" placeholder="Password" formControlName="password"/>
-        <a href="#">Forgot your password?</a>
+        <a>Forgot your password?</a>
         <button (click)="onSignIn(signinForm)">Sign In</button>
       </form>
     </div>

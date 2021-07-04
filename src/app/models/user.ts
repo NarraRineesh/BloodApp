@@ -5,6 +5,12 @@ export class User {
     displayName: string
     photoURL: string
     emailVerified: boolean
-    mobilenumber: boolean
-    about: string    
+    mobile: number
+    about: string
+    bloodGroup: string
+    plasma: boolean
+    city: string
+    area:string
+    weight: number
+    age: number
 }

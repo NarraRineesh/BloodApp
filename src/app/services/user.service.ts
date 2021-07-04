@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../models/user';
+import { AuthService } from './auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { User } from '../models/user';
 
 export class UserService {
 
-  constructor(private angularFirestore: AngularFirestore) {}
+  constructor(private angularFirestore: AngularFirestore, ) {}
 
   getUserDoc(id) {
     return this.angularFirestore
@@ -43,6 +44,6 @@ export class UserService {
     return this.angularFirestore
       .collection("users")
       .doc(id)
-      .update(user);
+      .update(user)
   }
 }

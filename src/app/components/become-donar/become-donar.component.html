@@ -1,6 +1,6 @@
 <div class="container">
     <h1 style="text-align: center;" class="my-3">Become donor</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit(content)">
         <label for="basic-addon1">Mobile number</label>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -89,9 +89,28 @@
         </span>
        <div class="row my-3">
            <div class="col">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id="recaptcha-container" type="submit" class="btn btn-primary">Submit</button>
            </div>
        </div>
-        
       </form>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title text-center">Important note</h4>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li>Age should be 18 to 60</li>
+      <li>Weight more than 50 kg</li>
+      <li>No tattoos in last 6 months</li>
+      <li>No surgery in last 12 months</li>
+      <li>No delivery (baby) in last 1 year and stopped lactation</li>
+      <li>No drug addiction</li>
+      <li>Taken covid vaccination ( 1st or 2nd dose)minimum 14 days ago</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close('No click')">No</button>
+    <button type="button" class="btn btn-success" (click)="saveUserData()">Yes</button>
+  </div>
+</ng-template>
