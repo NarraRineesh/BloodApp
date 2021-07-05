@@ -8,12 +8,14 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginSignupComponent } from './components/login-signup/login-signup.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
+import { PhoneSigninComponent } from './phone-signin/phone-signin.component';
 import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full',  },
   { path: 'login', component: LoginSignupComponent },
   {path: 'otp_verify',component: OtpVerifyComponent},
+  {path: 'phone',component: PhoneSigninComponent},
   {path: '', component: NavBarComponent, canActivate: [AuthGuard],
 children: [
   { path: 'home', component: HomeComponent , canActivate: [AuthGuard] },

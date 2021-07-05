@@ -3,12 +3,11 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { LocalUserService } from './localUser.service';
-import { UserService } from './user.service';
-
+import firebase from 'firebase/app';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +15,9 @@ import { UserService } from './user.service';
 export class AuthService {
   userData; 
   userState: any;
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  confirmationResult: firebase.auth.ConfirmationResult;
   constructor(
-private userService: UserService,
+    private cookieService: CookieService,
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
@@ -40,6 +39,7 @@ private userService: UserService,
              this.userData = userRef.data()
             console.log("userRef", userRef.data());
             this.localUserService.setUser(this.userData);
+            this.cookieService.set('token', this.userData.uid)
               this.ngZone.run(() => this.router.navigate(["/home"]));
           })
         })
@@ -77,7 +77,33 @@ this.toastr.warning(err.message)
     .then(() => {
       this.router.navigate(['email-verification']);
     })
-} 
+}
+signInWithPhoneNumber(recaptchaVerifier, phoneNumber) {
+  console.log(recaptchaVerifier);
+  return new Promise<any>((resolve, reject) => {
+
+    this.afAuth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier)
+      .then((confirmationResult) => {
+        this.confirmationResult = confirmationResult;
+        resolve(confirmationResult);
+      }).catch((error) => {
+        console.log(error);
+        reject('SMS not sent');
+      });
+  });
+}
+public async enterVerificationCode(code) {
+  return new Promise<any>((resolve, reject) => {
+    this.confirmationResult.confirm(code).then(async (result) => {
+      console.log(result);
+      const user = result.user;
+      resolve(user);
+    }).catch((error) => {
+      reject(error.message);
+    });
+
+  });
+}
 get isLoggedIn(): boolean {  
   const user = JSON.parse(localStorage.getItem('user'));
   return (user !== null) ? true : false;

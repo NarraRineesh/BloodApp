@@ -21,6 +21,8 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
 import { FAQComponent } from './components/faq/faq.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
+import { PhoneSigninComponent } from './phone-signin/phone-signin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ContactUsComponent,
     CheckFormFieldValidity,
     OtpVerifyComponent,
-    FAQComponent
+    FAQComponent,
+    PhoneSigninComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ToastrModule.forRoot(),
     NgxLoadingModule.forRoot({})
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

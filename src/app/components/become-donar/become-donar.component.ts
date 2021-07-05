@@ -3,10 +3,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
 import firebase from 'firebase/app';
-import 'firebase/auth';
-import { ToastRef, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { LocalUserService } from 'src/app/services/localUser.service';
 import { UserService } from 'src/app/services/user.service';
 import { WindowService } from 'src/app/services/window.service';
@@ -19,12 +21,13 @@ export class BecomeDonarComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   windowRef: any;
-  recaptchaVerifier: any;
   user: User;
   closeResult = '';
+   AndraPradesh = ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"];
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private authService: AuthService,
     private win: WindowService,
     public afAuth: AngularFireAuth,
     private userService: UserService,
@@ -32,7 +35,8 @@ export class BecomeDonarComponent implements OnInit {
     private modalService: NgbModal,
     private toster:ToastrService
   ) { 
-    this.user = this.localUserService.getUser()
+    this.user = this.localUserService.getUser();
+    
   }
 
   ngOnInit() {
@@ -46,10 +50,29 @@ export class BecomeDonarComponent implements OnInit {
       plasma: [''],
       isDonor: true
     });
-    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible'
-      });
+
+    this.windowRef = this.win.windowRef
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'invisible',
+      callback: (response) => {
+      },
+      'expired-callback': () => {
+      }
+    })
   }
+  ngAfterViewInit(){
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'invisible',
+      callback: (response) => {
+      },
+      'expired-callback': () => {
+      }
+    });
+  }
+ 
+  
+ 
+  
 
   get registerFormControl() {
     return this.registerForm.controls;
@@ -69,10 +92,16 @@ export class BecomeDonarComponent implements OnInit {
     }
   }
   saveUserData(){
-this.userService.updateUser(this.user.uid, this.registerForm.value);
+    const appVerifier = this.windowRef.recaptchaVerifier;
+    this.authService.signInWithPhoneNumber(appVerifier, "+918838949368").then(
+      success => {
+       console.log(success);
+      }
+    );
+    // this.userService.updateUser(this.user.uid, this.registerForm.value);
 this.modalService.dismissAll()
 this.toster.success(`Thanks! to be a donor.`);
-this.router.navigate(['/donors'])
+// this.router.navigate(['/donors'])
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

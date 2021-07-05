@@ -34,6 +34,7 @@ array=[
 ]
   constructor() { }
   ngOnInit(): void {
+   
   }
 
 }
