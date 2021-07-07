@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -17,7 +18,7 @@ export class DonorsListComponent implements OnInit {
   selectedDistrict: string = 'All';
   selectedBloodGroup: string = 'All';
   filterDonors: any[] =[];
-  constructor(private userService: UserService, private modalService:NgbModal) { }
+  constructor(private userService: UserService, private modalService:NgbModal,private router: Router) { }
 
   ngOnInit(): void {
     this.getDonors();
@@ -32,8 +33,9 @@ export class DonorsListComponent implements OnInit {
           data:e.payload.doc.data()
         } as any;
       })
-      console.log(this.Donors)
 this.Donors = donors.filter(item => item.data.isDonor === true);
+console.log(this.Donors);
+
 this.filterDonors = this.Donors
     }); 
   }
@@ -66,6 +68,9 @@ this.modalService.dismissAll();
   reset(){
     this.filterDonors= this.Donors;
     this.modalService.dismissAll();
+  }
+  singleDonor(id:string){
+    this.router.navigate([`single-donor/${id}`])
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

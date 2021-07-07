@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { LocalUserService } from 'src/app/services/localUser.service';
 
@@ -9,7 +10,8 @@ import { LocalUserService } from 'src/app/services/localUser.service';
 })
 export class HomeComponent implements OnInit {
 user:User
-  constructor(private localService:LocalUserService) {
+  constructor(private localService:LocalUserService,
+    private router: Router) {
   this.user =  this.localService.getUser();
   console.log(this.user);
   }
@@ -33,5 +35,7 @@ user:User
       });
     });
   }
-
+  editProfile(uid: string){
+this.router.navigate([`profile-edit/${uid}`])
+  }
 }

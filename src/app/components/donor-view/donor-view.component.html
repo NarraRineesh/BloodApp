@@ -1,1 +1,41 @@
-<p>donor-view works!</p>
+<div class="wrapper">
+    <div class="profile-card js-profile-card">
+      <div class="profile-card__img">
+        <img [src]="user.photoURL" alt="profile card">
+      </div>
+      <div class="profile-card__cnt js-profile-cnt">
+        <div class="profile-card__name">{{user.displayName}}</div>
+        <div class="profile-card__txt">Blood group <strong *ngIf="user.bloodGroup != undefined">{{user.bloodGroup}}</strong><strong *ngIf="user.bloodGroup === undefined">---</strong></div>
+        <div class="profile-card__txt"><strong>+91{{user.mobile}}</strong></div>
+        <div class="profile-card__txt"><strong>{{user.email}}</strong></div>
+        <div class="profile-card-loc">
+            <span class="profile-card-loc__icon">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+              </span>
+            <span *ngIf="user.city != undefined" class="profile-card-loc__txt">
+              {{user.city}}, {{user.area}}
+            </span>
+            <span *ngIf="user.city === undefined" class="profile-card-loc__txt">
+                --, --
+              </span>
+          </div>
+          <div class="profile-card-inf">
+            <div class="profile-card-inf__item">
+              <div *ngIf="user.weight != undefined" class="profile-card-inf__title">{{user.weight}}</div>
+              <div *ngIf="user.weight === undefined" class="profile-card-inf__title">--</div>
+              <div class="profile-card-inf__txt">Weight</div>
+            </div>
+            <div class="profile-card-inf__item">
+              <div *ngIf="user.age != undefined" class="profile-card-inf__title">{{user.age}}</div>
+              <div *ngIf="user.age === undefined" class="profile-card-inf__title">--</div>
+              <div class="profile-card-inf__txt">Age</div>
+            </div>
+          </div>
+        <div class="profile-card-ctr">
+          <button class="profile-card__button button--blue js-message-btn" (click)="reportProfile()">Report</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    

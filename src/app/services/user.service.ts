@@ -41,6 +41,8 @@ export class UserService {
   }
   
   updateUser( id, user: any) {
+console.log(user);
+
     return this.angularFirestore
       .collection("users")
       .doc(id)

@@ -2,7 +2,7 @@
   <h1 style="text-align: center;" class="my-3">Donors</h1>
     <div class="row d-flex justify-content-center align-items-center" *ngIf="filterDonors.length > 0">
         <div class="col-12" *ngFor="let donor of filterDonors">
-            <div class="drop__card">
+            <div class="drop__card" (click)="singleDonor(donor.id)">
                 <div class="drop__data">
                   <img [src]="donor.data.photoURL" alt="Perfil_01" class="drop__img" />
                   <div>
