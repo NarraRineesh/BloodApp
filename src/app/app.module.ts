@@ -21,6 +21,8 @@ import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component
 import { FAQComponent } from './components/faq/faq.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { DonorViewComponent } from './components/donor-view/donor-view.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { CookieService } from 'ngx-cookie-service';
     CheckFormFieldValidity,
     OtpVerifyComponent,
     FAQComponent,
+    ProfileEditComponent,
+    DonorViewComponent,
   ],
   imports: [
     BrowserModule,
