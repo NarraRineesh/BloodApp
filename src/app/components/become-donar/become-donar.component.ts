@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
 import firebase from 'firebase/app';
+import 'firebase/auth';
+// import  firebase from 'firebase/app';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service.service';
@@ -36,7 +36,6 @@ export class BecomeDonarComponent implements OnInit {
     private toster:ToastrService
   ) { 
     this.user = this.localUserService.getUser();
-    
   }
 
   ngOnInit() {
@@ -52,7 +51,8 @@ export class BecomeDonarComponent implements OnInit {
     });
 
     this.windowRef = this.win.windowRef
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      'recaptcha-container', {
       size: 'invisible',
       callback: (response) => {
       },
@@ -69,27 +69,25 @@ export class BecomeDonarComponent implements OnInit {
       }
     });
   }
- 
-  
- 
-  
-
+  routeToDonors(){
+    this.router.navigate(['/donors'])
+  }
   get registerFormControl() {
     return this.registerForm.controls;
   }
   onSubmit(content) {
     this.submitted = true;
-    if (this.registerForm.valid) {
+    // if (this.registerForm.valid) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
-    }
-    else{
-      console.log("else called")
-      console.log(this.registerForm.value);
-    }
+    // }
+    // else{
+    //   console.log("else called")
+    //   console.log(this.registerForm.value);
+    // }
   }
   saveUserData(){
     const appVerifier = this.windowRef.recaptchaVerifier;

@@ -16,13 +16,11 @@ import { CommonModule } from '@angular/common';
 import { BecomeDonarComponent } from './components/become-donar/become-donar.component';
 import { HomeComponent } from './components/home/home.component';
 import { DonorsListComponent } from './components/donors-list/donors-list.component';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
 import { FAQComponent } from './components/faq/faq.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-import { PhoneSigninComponent } from './phone-signin/phone-signin.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +30,9 @@ import { PhoneSigninComponent } from './phone-signin/phone-signin.component';
     HomeComponent,
     BecomeDonarComponent,
     DonorsListComponent,
-    ContactUsComponent,
     CheckFormFieldValidity,
     OtpVerifyComponent,
     FAQComponent,
-    PhoneSigninComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +44,7 @@ import { PhoneSigninComponent } from './phone-signin/phone-signin.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    BrowserAnimationsModule, // required animations module
+    BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgxLoadingModule.forRoot({})
   ],

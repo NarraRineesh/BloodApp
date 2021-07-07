@@ -1,4 +1,5 @@
 <div class="container" #container>
+  <h1 style="text-align: center;" class="my-3">Donors</h1>
     <div class="row d-flex justify-content-center align-items-center" *ngIf="filterDonors.length > 0">
         <div class="col-12" *ngFor="let donor of filterDonors">
             <div class="drop__card">
@@ -16,7 +17,7 @@
     <div class="no-tem mt-3" *ngIf="filterDonors.length === 0">
         <div class="content">
           <img src="../assets/Saly-42.png" width="250">
-          <p>No search results found.
+          <p>No donors found.
           </p>
         </div>
       </div>
@@ -29,7 +30,7 @@
       <h4 class="modal-title" id="modal-basic-title text-center">Search donor near by you</h4>
     </div>
     <div class="modal-body">
-        <!-- <div class="input-group my-3">
+        <div class="input-group my-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">District</label>
             </div>
@@ -37,7 +38,7 @@
               <option selected value="All">All</option>
               <option *ngFor="let data of AndraPradesh" [value]="data">{{data}}</option>
             </select>
-        </div> -->
+        </div>
         <div class="input-group my-3">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Blood group</label>

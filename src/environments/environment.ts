@@ -8,5 +8,6 @@ export const environment = {
     storageBucket: "bloodapp-9e3cb.appspot.com",
     messagingSenderId: "139624470875",
     appId: "1:139624470875:web:6365365caabea07ad7227e"
+    
   }
 };

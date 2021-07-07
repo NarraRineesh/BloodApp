@@ -13,4 +13,5 @@ export class User {
     area:string
     weight: number
     age: number
+    isDonor: boolean
 }
