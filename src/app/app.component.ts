@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from './models/user';
 import { LocalUserService } from './services/localUser.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { LocalUserService } from './services/localUser.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user: import("f:/Rineesh/BloodApp/src/app/models/user").User;
+  user: User;
   constructor(private localService: LocalUserService, private router: Router){}
   ngOnInit(){
    this.user = this.localService.getUser()
