@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginSignupComponent } from './components/login-signup/login-signup.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { OtpVerifyComponent } from './components/otp-verify/otp-verify.component';
+import { PhoneAuthComponent } from './components/phone-auth/phone-auth.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { AuthGuard } from './services/auth-guard.service';
 
@@ -23,6 +24,7 @@ children: [
   { path: 'single-donor/:id', component: DonorViewComponent , canActivate: [AuthGuard] },
   { path: 'become-donor', component: BecomeDonarComponent , canActivate: [AuthGuard] },
   { path: 'FAQ', component: FAQComponent , canActivate: [AuthGuard] },
+  { path: 'phone', component: PhoneAuthComponent , canActivate: [AuthGuard] },
 ]
 }
  

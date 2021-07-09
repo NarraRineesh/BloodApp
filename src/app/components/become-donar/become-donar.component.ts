@@ -60,47 +60,32 @@ export class BecomeDonarComponent implements OnInit {
       }
     })
   }
-  ngAfterViewInit(){
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      size: 'invisible',
-      callback: (response) => {
-      },
-      'expired-callback': () => {
-      }
-    });
-  }
+  
   routeToDonors(){
-    this.saveUserData()
-    // this.router.navigate(['/donors'])
+    this.router.navigate(['/donors'])
   }
   get registerFormControl() {
     return this.registerForm.controls;
   }
   onSubmit(content) {
     this.submitted = true;
-    // if (this.registerForm.valid) {
+    if (this.registerForm.valid) {
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
-    // }
-    // else{
-    //   console.log("else called")
-    //   console.log(this.registerForm.value);
-    // }
+    }
+    else{
+      console.log("else called")
+      console.log(this.registerForm.value);
+    }
   }
   saveUserData(){
-    const appVerifier = this.windowRef.recaptchaVerifier;
-    this.authService.signInWithPhoneNumber(appVerifier, "+918838949368").then(
-      success => {
-       console.log(success);
-      }
-    );
-    // this.userService.updateUser(this.user.uid, this.registerForm.value);
-this.modalService.dismissAll()
-this.toster.success(`Thanks! to be a donor.`);
-// this.router.navigate(['/donors'])
+    this.userService.updateUser(this.user.uid, this.registerForm.value);
+    this.modalService.dismissAll()
+    this.toster.success(`Thanks! to be a donor.`);
+    this.router.navigate(['/donors'])
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

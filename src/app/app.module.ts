@@ -24,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 import { DonorViewComponent } from './components/donor-view/donor-view.component';
+import { PhoneAuthComponent } from './components/phone-auth/phone-auth.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DonorViewComponent } from './components/donor-view/donor-view.component
     FAQComponent,
     ProfileEditComponent,
     DonorViewComponent,
+    PhoneAuthComponent,
   ],
   imports: [
     BrowserModule,
