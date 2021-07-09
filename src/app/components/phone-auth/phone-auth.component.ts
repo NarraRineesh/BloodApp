@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import firebase from 'firebase';
+import { ToastrService } from 'ngx-toastr';
 import { WindowService } from 'src/app/services/window.service';
 
 export class PhoneNumber {
@@ -31,7 +31,7 @@ export class PhoneAuthComponent implements OnInit {
 
   user: any;
 
-  constructor(private win: WindowService) { }
+  constructor(private win: WindowService, private toster:ToastrService) { }
 
   ngOnInit() {
     this.windowRef = this.win.windowRef
@@ -59,7 +59,9 @@ export class PhoneAuthComponent implements OnInit {
                 this.windowRef.confirmationResult = result;
 
             })
-            .catch( error => console.log('error', error) );
+            .catch( error => 
+              this.toster.warning(error)
+               );
 
   }
 
