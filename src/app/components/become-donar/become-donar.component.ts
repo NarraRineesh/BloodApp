@@ -70,7 +70,8 @@ export class BecomeDonarComponent implements OnInit {
     });
   }
   routeToDonors(){
-    this.router.navigate(['/donors'])
+    this.saveUserData()
+    // this.router.navigate(['/donors'])
   }
   get registerFormControl() {
     return this.registerForm.controls;
