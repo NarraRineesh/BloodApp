@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase';
 import { ToastrService } from 'ngx-toastr';
 import { WindowService } from 'src/app/services/window.service';
+import { environment } from 'src/environments/environment';
 
 export class PhoneNumber {
   country: string;
@@ -34,6 +35,7 @@ export class PhoneAuthComponent implements OnInit {
   constructor(private win: WindowService, private toster:ToastrService) { }
 
   ngOnInit() {
+    firebase.initializeApp(environment.firebaseConfig)
     this.windowRef = this.win.windowRef
     this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container')
 
