@@ -31,8 +31,7 @@ export class PhoneAuthComponent implements OnInit {
 
   user: any;
 
-  constructor(private win: WindowService,
-     private toster:ToastrService) { }
+  constructor(private win: WindowService, private toster:ToastrService) { }
 
   ngOnInit() {
     this.windowRef = this.win.windowRef
@@ -53,16 +52,16 @@ export class PhoneAuthComponent implements OnInit {
 
     const num = this.phoneNumber.e164;
 
-    // firebase.auth()
-    //         .signInWithPhoneNumber(this.phone, appVerifier)
-    //         .then(result => {
+    firebase.auth()
+            .signInWithPhoneNumber(this.phone, appVerifier)
+            .then(result => {
 
-    //             this.windowRef.confirmationResult = result;
+                this.windowRef.confirmationResult = result;
 
-    //         })
-    //         .catch( error => 
-    //           this.toster.warning(error)
-    //            );
+            })
+            .catch( error => 
+              this.toster.warning(error)
+               );
 
   }
 
