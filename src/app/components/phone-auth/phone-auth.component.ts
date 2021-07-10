@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { WindowService } from 'src/app/services/window.service';
 
 export class PhoneNumber {
@@ -31,7 +32,9 @@ export class PhoneAuthComponent implements OnInit {
 
   user: any;
 
-  constructor(private win: WindowService, private toster:ToastrService) { }
+  constructor(private win: WindowService,
+     private toster:ToastrService,
+     private authService: AuthService) { }
 
   ngOnInit() {
     this.windowRef = this.win.windowRef
@@ -51,30 +54,31 @@ export class PhoneAuthComponent implements OnInit {
     const appVerifier = this.windowRef.recaptchaVerifier;
 
     const num = this.phoneNumber.e164;
+this.authService.signInWithPhoneNumber(appVerifier, this.phone);
+    // firebase.auth()
+    //         .signInWithPhoneNumber(this.phone, appVerifier)
+    //         .then(result => {
 
-    firebase.auth()
-            .signInWithPhoneNumber(this.phone, appVerifier)
-            .then(result => {
+    //             this.windowRef.confirmationResult = result;
 
-                this.windowRef.confirmationResult = result;
-
-            })
-            .catch( error => 
-              this.toster.warning(error)
-               );
+    //         })
+    //         .catch( error => 
+    //           this.toster.warning(error)
+    //            );
 
   }
 
   verifyLoginCode() {
-    this.windowRef.confirmationResult
-                  .confirm(this.verificationCode)
-                  .then( result => {
+    this.authService.enterVerificationCode(this.verificationCode);
+    // this.windowRef.confirmationResult
+    //               .confirm(this.verificationCode)
+    //               .then( result => {
 
-                    this.user = result.user;
-                    console.log(result);
+    //                 this.user = result.user;
+    //                 console.log(result);
 
-    })
-    .catch( error => console.log(error, "Incorrect code entered?"));
+    // })
+    // .catch( error => console.log(error, "Incorrect code entered?"));
   }
 
 
