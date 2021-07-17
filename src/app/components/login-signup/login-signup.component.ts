@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { WindowService } from 'src/app/services/window.service';
 import firebase from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-login-signup',
@@ -23,7 +24,7 @@ export class LoginSignupComponent implements OnInit {
   showsignUpVerify: boolean;
   showLoginVerify: boolean
   constructor( private fb: FormBuilder,
-    private afAuth: AngularFireAuth,
+    public afs: AngularFirestore,
     private authService: AuthService,
     private win: WindowService, 
     private toster:ToastrService) { }
@@ -56,9 +57,25 @@ export class LoginSignupComponent implements OnInit {
   }
   onSignIn(form: FormGroup){
   if(this.signinForm.valid){
-    this.showLoginVerify = true
+    this.afs.collection("users").ref.where("mobile", "==", `+91${this.signinForm.value.mobile}`).onSnapshot(snap =>{
+      snap.forEach(userRef => {
+        console.log(userRef.data());
+        const user = userRef.data() as any
+        if(user){
+          this.showLoginVerify = true
     const appVerifier = this.windowRef.recaptchaVerifier;
-    this.authService.signInWithPhoneNumber(appVerifier, `+91${this.signinForm.value.mobile}`, '');
+    this.authService.signInWithPhoneNumber(appVerifier, `+91${this.signinForm.value.mobile}`);
+  
+        }else{
+          console.log('else called');
+          
+          this.toster.warning(`No user record found with ${this.signinForm.value.mobile}`)
+        }
+      })
+    })
+    // this.showLoginVerify = true
+    // const appVerifier = this.windowRef.recaptchaVerifier;
+    // this.authService.signInWithPhoneNumber(appVerifier, `+91${this.signinForm.value.mobile}`);
   }
   else{
     this.toster.warning('Mobile number badly formatted!')
@@ -68,7 +85,7 @@ export class LoginSignupComponent implements OnInit {
     if(this.signupForm.valid){
       this.showsignUpVerify = true
       const appVerifier = this.windowRef.recaptchaVerifier;
-      this.authService.signInWithPhoneNumber(appVerifier,`+91${this.signinForm.value.mobile}`, this.signupForm.value);  
+      this.authService.signUpWithPhoneNumber(appVerifier,`+91${this.signupForm.value.mobile}`, this.signupForm.value);  
     }
     else{
       this.toster.warning('Check out all fields!')
@@ -76,5 +93,8 @@ export class LoginSignupComponent implements OnInit {
   }
   verifyLoginCode(){
     this.authService.enterVerificationCode(this.verificationCode);
+  }
+  verifySignUpCode(){
+    this.authService.enterSignUpVerificationCode(this.verificationCode);
   }
 }

@@ -5,7 +5,7 @@
           <h1 class="mb-3">Verify OTP</h1>
           <input type="text" placeholder=" Verify OTP" [(ngModel)]="verificationCode" [ngModelOptions]="{standalone: true}"/>
           <a style="text-decoration: underline; margin-bottom: 5px;">Re-send code</a><br>
-          <button (click)="verifyLoginCode()">Verify</button>
+          <button (click)="verifySignUpCode()">Verify</button>
         </div>
         <div *ngIf="!showsignUpVerify">
           <h1 class="mb-3">Sign Up</h1>
