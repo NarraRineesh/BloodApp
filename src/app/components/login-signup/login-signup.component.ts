@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { WindowService } from 'src/app/services/window.service';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-login-signup',
@@ -17,45 +19,62 @@ export class LoginSignupComponent implements OnInit {
   user: User;
   signupForm: FormGroup;
   signinForm: FormGroup;
+  phone:number;
+  showsignUpVerify: boolean;
+  showLoginVerify: boolean
   constructor( private fb: FormBuilder,
     private afAuth: AngularFireAuth,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private win: WindowService, 
+    private toster:ToastrService) { }
 
   ngOnInit(): void {
+    this.windowRef = this.win.windowRef
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{
+      'size': 'invisible'
+    })
+
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      mobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
     });
     this.signinForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      mobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]]
     });
     const signUpButton = document.getElementById("signUp");
     const signInButton = document.getElementById("signIn");
     const container = document.getElementById("container");
     signUpButton.addEventListener("click", () => {
       container.classList.add("right-panel-active");
+      this.showLoginVerify = false
     });
     signInButton.addEventListener("click", () => {
       container.classList.remove("right-panel-active");
-    });
-// 
-    // https://stackoverflow.com/questions/46878179/how-to-use-firebase-invisible-recaptcha-for-angular-web-app
-    // this.windowRef.recaptchaVerifier = this.afAuth.creeat
-    // this.afAuth.signInWithPhoneNumber(this.phoneNumber, '')
-    // .then(res => {
-    //   console.log('Successfully signed up!', res);
-    // })
-    // .catch(error => {
-    //   console.log('Something is wrong:', error.message);
-    // });   
-
+      this.showsignUpVerify = false
+    });   
   }
   onSignIn(form: FormGroup){
-    this.authService.SignIn(form.value.email, form.value.password);
+  if(this.signinForm.valid){
+    this.showLoginVerify = true
+    const appVerifier = this.windowRef.recaptchaVerifier;
+    this.authService.signInWithPhoneNumber(appVerifier, `+91${this.signinForm.value.mobile}`, '');
+  }
+  else{
+    this.toster.warning('Mobile number badly formatted!')
+  }
   }
   onSignUp(form: FormGroup){
-    this.authService.SignUp(form.value);
+    if(this.signupForm.valid){
+      this.showsignUpVerify = true
+      const appVerifier = this.windowRef.recaptchaVerifier;
+      this.authService.signInWithPhoneNumber(appVerifier,`+91${this.signinForm.value.mobile}`, this.signupForm.value);  
+    }
+    else{
+      this.toster.warning('Check out all fields!')
+    }
+  }
+  verifyLoginCode(){
+    this.authService.enterVerificationCode(this.verificationCode);
   }
 }

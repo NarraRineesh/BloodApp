@@ -1,21 +1,36 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
       <form [formGroup]="signupForm" >
-        <h1 class="mb-3">Sign Up</h1>
-        <input type="text" placeholder="Name" formControlName="name"/>
-        <input type="email" placeholder="Email" formControlName="email"/>
-        <input type="password" placeholder="Password" formControlName="password"/>
-        <button (click)="onSignUp(signupForm)">Sign Up</button>
+        <div *ngIf="showsignUpVerify">
+          <h1 class="mb-3">Verify OTP</h1>
+          <input type="text" placeholder=" Verify OTP" [(ngModel)]="verificationCode" [ngModelOptions]="{standalone: true}"/>
+          <a style="text-decoration: underline; margin-bottom: 5px;">Re-send code</a><br>
+          <button (click)="verifyLoginCode()">Verify</button>
+        </div>
+        <div *ngIf="!showsignUpVerify">
+          <h1 class="mb-3">Sign Up</h1>
+          <input type="text" placeholder="Name" formControlName="name"/>
+          <input type="email" placeholder="Email" formControlName="email"/>
+          <input type="mobile" placeholder="Mobile" formControlName="mobile"/>
+          <button (click)="onSignUp(signupForm)">Sign Up</button>  
+        </div>
       </form>
     </div>
     <div class="form-container sign-in-container">
       <form [formGroup]="signinForm">
-        <h1 class="mb-3">Sign In</h1>
-        <input type="email" placeholder="Email" formControlName="email"/>
-        <input type="password" placeholder="Password" formControlName="password"/>
-        <a>Forgot your password?</a>
-        <button (click)="onSignIn(signinForm)">Sign In</button>
+        <div *ngIf="!showLoginVerify">
+          <h1 class="mb-3">Sign In</h1>
+          <input type="text" placeholder="Mobile" formControlName="mobile"/>
+          <button (click)="onSignIn(signinForm)">Sign In</button>  
+        </div>
+        <div *ngIf="showLoginVerify">
+          <h1 class="mb-3">Verify OTP</h1>
+          <input type="text" placeholder=" Verify OTP" [(ngModel)]="verificationCode" [ngModelOptions]="{standalone: true}"/>
+          <a style="text-decoration: underline; margin-bottom: 5px;">Re-send code</a><br>
+          <button (click)="verifyLoginCode()">Verify</button>
+        </div>
       </form>
+      
     </div>
     <div class="overlay-container">
       <div class="overlay">
@@ -32,3 +47,4 @@
       </div>
     </div>
   </div>
+  <div id="recaptcha-container"></div>

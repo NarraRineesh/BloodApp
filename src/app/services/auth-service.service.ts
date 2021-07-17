@@ -16,6 +16,7 @@ export class AuthService {
   userData; 
   userState: any;
   confirmationResult: firebase.auth.ConfirmationResult;
+  user: User;
   constructor(
     private cookieService: CookieService,
     public afs: AngularFirestore,   // Inject Firestore service
@@ -78,12 +79,13 @@ this.toastr.warning(err.message)
       this.router.navigate(['email-verification']);
     })
 }
-signInWithPhoneNumber(recaptchaVerifier, phoneNumber) {
-  console.log(recaptchaVerifier);
+signInWithPhoneNumber(recaptchaVerifier, phoneNumber, user) {
+  console.log(phoneNumber);
+  
   return new Promise<any>((resolve, reject) => {
-
     this.afAuth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier)
       .then((confirmationResult) => {
+        this.user =user
         this.confirmationResult = confirmationResult;
         resolve(confirmationResult);
       }).catch((error) => {
@@ -97,6 +99,7 @@ public async enterVerificationCode(code) {
     this.confirmationResult.confirm(code).then(async (result) => {
       console.log(result);
       const user = result.user;
+      this.SetUserData(result.user, this.user);
       resolve(user);
     }).catch((error) => {
       reject(error.message);
@@ -114,7 +117,7 @@ SetUserData(result, user) {
   console.log(userRef)
   const userState: any = {
     uid: result.uid,
-    email: result.email,
+    email: user.email,
     displayName: user.name,
     emailVerified: result.emailVerified,
     isDonor: false,
