@@ -34,6 +34,7 @@ export class ProfileEditComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.fb.group({
       mobile: [this.user.mobile, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      displayName: [this.user.displayName, [Validators.required]],
       email: [this.user.email, [Validators.required]],
       city: [this.user.city, [Validators.required]],
       bloodGroup: [this.user.bloodGroup, Validators.required],
@@ -49,7 +50,8 @@ export class ProfileEditComponent implements OnInit {
   }
   onSubmit(){
     if(this.registerForm.valid){
-      this.userService.updateUser(this.user.uid, this.registerForm.value);
+      this.userService.updateUser(this.user.uid, this.user);
+      
     }
     else{
       console.log("not valid");

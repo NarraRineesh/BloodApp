@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth-service.service';
 import { WindowService } from 'src/app/services/window.service';
 import firebase from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-signup',
@@ -17,13 +18,14 @@ export class LoginSignupComponent implements OnInit {
   windowRef: any;
   phoneNumber:string;
   verificationCode: string;
-  user: User;
-  signupForm: FormGroup;
+  user;
+  signupForm: FormGroup;s
   signinForm: FormGroup;
   phone:number;
   showsignUpVerify: boolean;
   showLoginVerify: boolean
   constructor( private fb: FormBuilder,
+    private userService: UserService,
     public afs: AngularFirestore,
     private authService: AuthService,
     private win: WindowService, 
@@ -57,11 +59,18 @@ export class LoginSignupComponent implements OnInit {
   }
   onSignIn(form: FormGroup){
   if(this.signinForm.valid){
-    this.afs.collection("users").ref.where("mobile", "==", `+91${this.signinForm.value.mobile}`).onSnapshot(snap =>{
-      snap.forEach(userRef => {
-        console.log(userRef.data());
-        const user = userRef.data() as any
-        if(user){
+    this.userService.getUserList().subscribe(res => {
+      const users = res.map( e => {
+        return {
+          id: e.payload.doc.id,
+          data:e.payload.doc.data()
+        } as any;
+      })
+      console.log(users);
+      this.user = users.filter(item => item.data.mobile === `+91${this.signinForm.value.mobile}`);
+console.log(this.user);
+
+        if(this.user.length != 0){
           this.showLoginVerify = true
     const appVerifier = this.windowRef.recaptchaVerifier;
     this.authService.signInWithPhoneNumber(appVerifier, `+91${this.signinForm.value.mobile}`);
@@ -71,7 +80,7 @@ export class LoginSignupComponent implements OnInit {
           
           this.toster.warning(`No user record found with ${this.signinForm.value.mobile}`)
         }
-      })
+      
     })
     // this.showLoginVerify = true
     // const appVerifier = this.windowRef.recaptchaVerifier;

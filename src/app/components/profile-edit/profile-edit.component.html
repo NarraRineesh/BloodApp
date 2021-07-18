@@ -4,21 +4,19 @@
         <label for="basic-addon1">Mobile number</label>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">+91</span>
+              <span class="input-group-text" id="basic-addon1">IND</span>
             </div>
-            <input type="text" class="form-control" [(ngModel)]="user.mobile" aria-label="Username" aria-describedby="basic-addon1" formControlName="mobile">
+            <input type="text" class="form-control" disabled [(ngModel)]="user.mobile" aria-label="Username" aria-describedby="basic-addon1" formControlName="mobile">
         </div>
-        <span class="text-danger"
-            *ngIf="(registerFormControl.mobile.touched || submitted) && registerFormControl.mobile.errors?.required">
-             Mobile number is required*
-        </span>
-        <!-- <div class="input-group mb-3">
+        <label >Username</label>
+        <div class="input-group mb-3">
+            <input type="email" class="form-control" [(ngModel)]="user.displayName" aria-label="Username" aria-describedby="basic-addon1" formControlName="displayName">
+        </div>
+        <label >Email</label>
+        <div class="input-group mb-3">
             <input type="email" class="form-control" [(ngModel)]="user.email" aria-label="Username" aria-describedby="basic-addon1" formControlName="email">
         </div>
-        <span class="text-danger"
-            *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
-             Email is required*
-        </span> -->
+
         <div class="input-group my-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">District</label>
