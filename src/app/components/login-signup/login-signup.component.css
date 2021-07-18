@@ -103,6 +103,8 @@ input {
   height: 100vh;
   width: 580px;
   max-width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .form-container {

@@ -141,7 +141,7 @@ public async enterSignUpVerificationCode(code) {
     this.confirmationResult.confirm(code).then(async (result) => {
       const user = result.user;
       this.SetUserData(result.user, this.user);
-      
+      this.toastr.success('Sign up success you can login with your mobile number.')
       resolve(user);
     }).catch((error) => {
       reject(error.message);

@@ -40,7 +40,6 @@ export class BecomeDonarComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      mobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       city: ['', [Validators.required]],
       bloodGroup: ['', Validators.required],
       area: ['', [Validators.required]],
@@ -50,15 +49,7 @@ export class BecomeDonarComponent implements OnInit {
       isDonor: true
     });
 
-    this.windowRef = this.win.windowRef
-    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-      'recaptcha-container', {
-      size: 'invisible',
-      callback: (response) => {
-      },
-      'expired-callback': () => {
-      }
-    })
+   
   }
   
   routeToDonors(){
