@@ -6,7 +6,7 @@
       <div class="profile-card__cnt js-profile-cnt">
         <div class="profile-card__name">{{user.displayName}}</div>
         <div class="profile-card__txt">Blood group <strong *ngIf="user.bloodGroup != undefined">{{user.bloodGroup}}</strong><strong *ngIf="user.bloodGroup === undefined">---</strong></div>
-        <div class="profile-card__txt"><strong>+91{{user.mobile}}</strong></div>
+        <div class="profile-card__txt"><strong>{{user.mobile}}</strong></div>
         <div class="profile-card__txt"><strong>{{user.email}}</strong></div>
         <div class="profile-card-loc">
             <span class="profile-card-loc__icon">

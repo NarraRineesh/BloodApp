@@ -41,7 +41,7 @@ export class DonorViewComponent implements OnInit {
 this.router.navigate([`profile-edit/${uid}`])
   }
   reportProfile(){
-    this.toster.success('Report service will be update soon!!')
+    this.toster.success('Report request sent to admin success.')
   }
 
 }
