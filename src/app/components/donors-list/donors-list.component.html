@@ -35,7 +35,7 @@
               <label class="input-group-text" for="inputGroupSelect01">District</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01" (change)="onSelectDistrictType($event.target.value , i)" [(ngModel)]="selectedDistrict">
-              <option selected value="All">All</option>
+              <option selected disabled value="All">--Choose District --</option>
               <option *ngFor="let data of AndraPradesh" [value]="data">{{data}}</option>
             </select>
         </div>
@@ -44,7 +44,7 @@
               <label class="input-group-text" for="inputGroupSelect01">Blood group</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01" (change)="onSelectBloodGroupType($event.target.value)" [(ngModel)]="selectedBloodGroup">
-              <option selected disabled>All</option>
+              <option selected value="All">--Choose Blood group--</option>
               <option value="A+">A+</option>
               <option value="A-">A-</option>
               <option value="B+">B+</option>

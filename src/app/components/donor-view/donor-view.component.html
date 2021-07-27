@@ -32,10 +32,22 @@
             </div>
           </div>
         <div class="profile-card-ctr">
-          <button class="profile-card__button button--blue js-message-btn" (click)="reportProfile()">Report</button>
+          <button class="profile-card__button button--blue js-message-btn" (click)="open(content)">Report</button>
         </div>
       </div>
     </div>
     </div>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title text-center">Report Account</h4>
+      </div>
+      <div class="modal-body">
+      <p>Are you sure you want to report account {{user.displayName}}?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close('No click')">No</button>
+        <button type="button" class="btn btn-success" (click)="reportProfile()">Yes</button>
+      </div>
+    </ng-template>
     
     

@@ -56,13 +56,19 @@ this.filterDonors = this.Donors
   this.selectedBloodGroup = $event
   }
   filterList(){
-// if(this.selectedDistrict === 'All'){
-//   console.log(this.Donors, this.selectedBloodGroup);
-// this.filterDonors = this.Donors
-// }else{
- this.filterDonors= this.Donors.filter((item)=>( item.data.bloodGroup === this.selectedBloodGroup && this.selectedDistrict));
-//   console.log(this.filterDonors);
-// }
+    console.log(this.Donors);
+    
+    if(this.selectedDistrict === 'All'){
+      this.filterDonors= this.Donors.filter((item)=>( item.data.bloodGroup === this.selectedBloodGroup));
+    }
+    if(this.selectedBloodGroup === 'All'){
+      this.filterDonors= this.Donors.filter((item)=>( item.data.city === this.selectedDistrict));
+    }
+    if(this.selectedDistrict != 'All' && this.selectedBloodGroup != "All"){
+      this.filterDonors= this.Donors.filter((item)=>( item.data.bloodGroup === this.selectedBloodGroup && item.data.city === this.selectedDistrict));
+    }
+    if(this.selectedDistrict === 'All' && this.selectedBloodGroup === "All"){
+      this.filterDonors= this.Donors;    }
 this.modalService.dismissAll();
   }
   reset(){

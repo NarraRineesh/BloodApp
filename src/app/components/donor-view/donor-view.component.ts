@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { LocalUserService } from 'src/app/services/localUser.service';
@@ -14,10 +15,12 @@ export class DonorViewComponent implements OnInit {
 
   user:User
   DonorId: any;
+  closeResult: string;
   constructor(private localService:LocalUserService,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
+    private modalService: NgbModal,
     private toster: ToastrService) {
       this.DonorId = this.route.snapshot.params.id;
       
@@ -41,7 +44,25 @@ export class DonorViewComponent implements OnInit {
 this.router.navigate([`profile-edit/${uid}`])
   }
   reportProfile(){
+    this.modalService.dismissAll();
+    this.userService.createReportedUser(this.user)
     this.toster.success('Report request sent to admin success.')
   }
+open(content){
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true}).result.then((result) => {
+    this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
 
+}
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
 }

@@ -29,7 +29,14 @@ export class UserService {
     .collection("users")
     .snapshotChanges();
   }
-
+  createReportedUser(user: User) {
+    return new Promise<any>((resolve, reject) =>{
+      this.angularFirestore
+        .collection("reported-users")
+        .add(user)
+        .then(response => { console.log(response) }, error => reject(error));
+    });
+  }
   createUser(user: User) {
     return new Promise<any>((resolve, reject) =>{
       this.angularFirestore

@@ -16,14 +16,27 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full',  },
   { path: 'login', component: LoginSignupComponent },
   {path: 'otp_verify',component: OtpVerifyComponent},
-  {path: '', component: NavBarComponent, canActivate: [AuthGuard],
+  {path: '', component: NavBarComponent, 
+  // canActivate: [AuthGuard],
 children: [
-  { path: 'home', component: HomeComponent , canActivate: [AuthGuard] },
-  { path: 'profile-edit/:id', component: ProfileEditComponent , canActivate: [AuthGuard] },
-  { path: 'donors', component: DonorsListComponent , canActivate: [AuthGuard] },
-  { path: 'single-donor/:id', component: DonorViewComponent , canActivate: [AuthGuard] },
-  { path: 'become-donor', component: BecomeDonarComponent , canActivate: [AuthGuard] },
-  { path: 'FAQ', component: FAQComponent , canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent ,
+  //  canActivate: [AuthGuard] 
+  },
+  { path: 'profile-edit/:id', component: ProfileEditComponent ,
+  //  canActivate: [AuthGuard] 
+  },
+  { path: 'donors', component: DonorsListComponent ,
+  //  canActivate: [AuthGuard] 
+  },
+  { path: 'single-donor/:id', component: DonorViewComponent ,
+  //  canActivate: [AuthGuard] 
+  },
+  { path: 'become-donor', component: BecomeDonarComponent ,
+  //  canActivate: [AuthGuard] 
+  },
+  { path: 'FAQ', component: FAQComponent ,
+  //  canActivate: [AuthGuard]
+   },
   { path: 'phone', component: PhoneAuthComponent , canActivate: [AuthGuard] },
 ]
 }
