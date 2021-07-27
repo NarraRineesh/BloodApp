@@ -17,25 +17,25 @@ const routes: Routes = [
   { path: 'login', component: LoginSignupComponent },
   {path: 'otp_verify',component: OtpVerifyComponent},
   {path: '', component: NavBarComponent, 
-  // canActivate: [AuthGuard],
+  canActivate: [AuthGuard],
 children: [
   { path: 'home', component: HomeComponent ,
-  //  canActivate: [AuthGuard] 
+   canActivate: [AuthGuard] 
   },
   { path: 'profile-edit/:id', component: ProfileEditComponent ,
-  //  canActivate: [AuthGuard] 
+   canActivate: [AuthGuard] 
   },
   { path: 'donors', component: DonorsListComponent ,
-  //  canActivate: [AuthGuard] 
+   canActivate: [AuthGuard] 
   },
   { path: 'single-donor/:id', component: DonorViewComponent ,
-  //  canActivate: [AuthGuard] 
+   canActivate: [AuthGuard] 
   },
   { path: 'become-donor', component: BecomeDonarComponent ,
-  //  canActivate: [AuthGuard] 
+   canActivate: [AuthGuard] 
   },
   { path: 'FAQ', component: FAQComponent ,
-  //  canActivate: [AuthGuard]
+   canActivate: [AuthGuard]
    },
   { path: 'phone', component: PhoneAuthComponent , canActivate: [AuthGuard] },
 ]
